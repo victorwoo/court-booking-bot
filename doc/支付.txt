@@ -1,0 +1,9 @@
+https://fdsaas.hulasports.com/api/orderlists/pay/bail
+
+{"_org":"5c7f489783ab0b6f3bc78789","_member":"5fbd17924167e51fd0b4f2e3","orderDate":"1607702400000","orderArr":[{"_field":"5c7f6d6983ab0b6f3bc7891b","_time":"5c7f705683ab0b6f3bc789e4"}],"payment":"member","activityUuid":"","couponUuid":"","assignUuid":""}
+
+_time： 场次_id 
+_field： 场地_id  
+orderDate: 日期
+_member：会员id
+_org: 羽毛球id
