@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <link href="https://cdn.bootcss.com/datepicker/0.5.4/datepicker.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/datepicker/0.5.4/datepicker.js"></script>
+<script src="https://cdn.bootcss.com/datepicker/0.5.4/i18n/datepicker.zh-CN.js"></script>
+ </head>
+ <body>
+  <div>会员ID<input type='text' id='_member' size="40" value='5fbd17924167e51fd0b4f2e3'></div>
+  <div>微信OPENID<input type='text' id='openid' size="40" value='ohYvz5JPEqirVfbe9v5c0Wwg-fUI'></div>
+  <div>场地
+  <select id="_field">
+	<option value='5c7f6d6983ab0b6f3bc7891b'>1号场地</option>
+	<option value='5c7f6d6f83ab0b6f3bc7891c'>2号场地</option>
+	<option value='5c7f6d7483ab0b6f3bc7891d'>3号场地</option>
+	<option value='5c7f6d7983ab0b6f3bc7891e'>4号场地</option>
+	<option value='5c7f6d7f83ab0b6f3bc7891f'>5号场地</option>
+	<option value='5c7f6d8583ab0b6f3bc78920'>6号场地</option>
+	<option value='5c7f6d8983ab0b6f3bc78921'>7号场地</option>
+	<option value='5c7f6d8f83ab0b6f3bc78922'>8号场地</option>
+	<option value='5c7f6d9883ab0b6f3bc78923'>9号场地</option>
+	<option value='5c7f6d9d83ab0b6f3bc78924'>10号场地</option>
+	<option value='5c7f6da283ab0b6f3bc78925'>11号场地</option>
+	<option value='5c7f6da783ab0b6f3bc78926'>12号场地</option>
+  </select>
+  </div>
+  <div>场次
+  <select id="_time">
+	<option value='5c7f705683ab0b6f3bc789e4'>8:00--9:00</option>
+	<option value='5c7f706883ab0b6f3bc789ed'>9:00--10:00</option>
+	<option value='5c7f707183ab0b6f3bc789f6'>10:00--11:00</option>
+	<option value='5c7f707983ab0b6f3bc789ff'>11:00--12:00</option>
+	<option value='5c7f708283ab0b6f3bc78a08'>12:00--13:00</option>
+	<option value='5c7f708a83ab0b6f3bc78a11'>13:00--14:00</option>
+	<option value='5c7f709383ab0b6f3bc78a1a'>14:00--15:00</option>
+	<option value='5c7f709a83ab0b6f3bc78a23'>15:00--16:00</option>
+	<option value='5c7f70a383ab0b6f3bc78a2c'>16:00--17:00</option>
+	<option value='5c7f70ac83ab0b6f3bc78a35'>17:00--18:00</option>
+	<option value='5c7f70b883ab0b6f3bc78a3e'>18:00--20:00</option>
+	<option value='5c7f70c083ab0b6f3bc78a47'>20:00--22:00</option>
+  </select>
+  </div>
+  <div>日期<input type="text" name="mydate" id="orderDate"/></div>
+  <button onclick="pay()" id="pay">每2秒抢单</button>
+    <div><textarea rows="10" cols="30" type="text" id="mqtt"></textarea></div>
+  <script>
+    $(function () {
+        $('#orderDate').datepicker({
+            language: 'zh-CN',
+            autoclose: true,
+            todayHighlight: true
+        });
+    });
+		let r={};r._ff = function(e, t, r, n, o, i, a) {
+                var u = e + (t & r | ~t & n) + (o >>> 0) + a;
+                return (u << i | u >>> 32 - i) + t;
+            }, r._gg = function(e, t, r, n, o, i, a) {
+                var u = e + (t & n | r & ~n) + (o >>> 0) + a;
+                return (u << i | u >>> 32 - i) + t;
+            }, r._hh = function(e, t, r, n, o, i, a) {
+                var u = e + (t ^ r ^ n) + (o >>> 0) + a;
+                return (u << i | u >>> 32 - i) + t;
+            }, r._ii = function(e, t, r, n, o, i, a) {
+                var u = e + (r ^ (t | ~n)) + (o >>> 0) + a;
+                return (u << i | u >>> 32 - i) + t;
+            }, r._blocksize = 16;
+   var t = {
+        rotl: function(r, t) {
+            return r << t | r >>> 32 - t;
+        },
+        rotr: function(r, t) {
+            return r << 32 - t | r >>> t;
+        },
+        endian: function(r) {
+            if (r.constructor == Number) return 16711935 & t.rotl(r, 8) | 4278255360 & t.rotl(r, 24);
+            for (var n = 0; n < r.length; n++) r[n] = t.endian(r[n]);
+            return r;
+        },
+        randomBytes: function(r) {
+            for (var t = []; r > 0; r--) t.push(Math.floor(256 * Math.random()));
+            return t;
+        },
+        stringToBytes: function(r) {
+            for (var t = [], n = 0; n < r.length; n++) t.push(r.charCodeAt(n));
+            return t;
+        },
+        bytesToString: function(r) {
+            for (var t = [], n = 0; n < r.length; n++) t.push(String.fromCharCode(r[n]));
+            return t.join("");
+        },
+        stringToWords: function(r) {
+            for (var t = [], n = 0, o = 0; n < r.length; n++, o += 8) t[o >>> 5] |= r.charCodeAt(n) << 24 - o % 32;
+            return t;
+        },
+        bytesToWords: function(r) {
+            for (var t = [], n = 0, o = 0; n < r.length; n++, o += 8) t[o >>> 5] |= r[n] << 24 - o % 32;
+            return t;
+        },
+        wordsToBytes: function(r) {
+            for (var t = [], n = 0; n < 32 * r.length; n += 8) t.push(r[n >>> 5] >>> 24 - n % 32 & 255);
+            return t;
+        },
+        bytesToHex: function(r) {
+            for (var t = [], n = 0; n < r.length; n++) t.push((r[n] >>> 4).toString(16)), t.push((15 & r[n]).toString(16));
+            return t.join("");
+        },
+        hexToBytes: function(r) {
+            for (var t = [], n = 0; n < r.length; n += 2) t.push(parseInt(r.substr(n, 2), 16));
+            return t;
+        },
+        bytesToBase64: function(n) {
+            if ("function" == typeof btoa) return btoa(t.bytesToString(n));
+            for (var o, e = [], a = 0; a < n.length; a++) switch (a % 3) {
+              case 0:
+                e.push(r.charAt(n[a] >>> 2)), o = (3 & n[a]) << 4;
+                break;
+
+              case 1:
+                e.push(r.charAt(o | n[a] >>> 4)), o = (15 & n[a]) << 2;
+                break;
+
+              case 2:
+                e.push(r.charAt(o | n[a] >>> 6)), e.push(r.charAt(63 & n[a])), o = -1;
+            }
+            for (void 0 != o && -1 != o && e.push(r.charAt(o)); e.length % 4 != 0; ) e.push("=");
+            return e.join("");
+        },
+        base64ToBytes: function(n) {
+            if ("function" == typeof atob) return t.stringToBytes(atob(n));
+            n = n.replace(/[^A-Z0-9+\/]/gi, "");
+            for (var o = [], e = 0; e < n.length; e++) switch (e % 4) {
+              case 1:
+                o.push(r.indexOf(n.charAt(e - 1)) << 2 | r.indexOf(n.charAt(e)) >>> 4);
+                break;
+
+              case 2:
+                o.push((15 & r.indexOf(n.charAt(e - 1))) << 4 | r.indexOf(n.charAt(e)) >>> 2);
+                break;
+
+              case 3:
+                o.push((3 & r.indexOf(n.charAt(e - 1))) << 6 | r.indexOf(n.charAt(e)));
+            }
+            return o;
+        }
+    };
+
+	function getSignStr(e) {
+        var t = "", r = [];
+        for (var n in e) "" != e[n] && e[n] && r.push(n);
+        r.sort();
+        for (var o = 0; o < r.length; o++) {
+            o > 0 && (t += "&");
+            var i = "object" == typeof(e[r[o]]) ? JSON.stringify(e[r[o]]) : e[r[o]];
+            t += r[o] + "=" + i;
+        }
+            return encodeURIComponent(t);
+    }
+	function p(e){
+		const r = getSignStr(e)
+		return md5(r)
+	}
+	
+	function wordsToBytes(e) {
+                    for (var t = [], r = 0; r < 32 * e.length; r += 8) t.push(e[r >>> 5] >>> 24 - r % 32 & 255);
+                    return t;
+                };
+    function bytesToHex(e) {
+                    for (var t = [], r = 0; r < e.length; r++) t.push((e[r] >>> 4).toString(16)), t.push((15 & e[r]).toString(16));
+                    return t.join("");
+                };
+	function md5(e) {
+                var o = wordsToBytes(_md5(e));
+                return bytesToHex(o);
+            };
+    function _md5(e) {
+                for (var n = t.stringToWords(e), o = 8 * e.length, i = 1732584193, a = -271733879, u = -1732584194, s = 271733878, c = 0; c < n.length; c++) n[c] = 16711935 & (n[c] << 8 | n[c] >>> 24) | 4278255360 & (n[c] << 24 | n[c] >>> 8);
+                for (n[o >>> 5] |= 128 << o % 32, n[14 + (o + 64 >>> 9 << 4)] = o, c = 0; c < n.length; c += 16) {
+                    var l = i, f = a, d = u, h = s;
+                    i = r._ff(i, a, u, s, n[c + 0], 7, -680876936), s = r._ff(s, i, a, u, n[c + 1], 12, -389564586), 
+                    u = r._ff(u, s, i, a, n[c + 2], 17, 606105819), a = r._ff(a, u, s, i, n[c + 3], 22, -1044525330), 
+                    i = r._ff(i, a, u, s, n[c + 4], 7, -176418897), s = r._ff(s, i, a, u, n[c + 5], 12, 1200080426), 
+                    u = r._ff(u, s, i, a, n[c + 6], 17, -1473231341), a = r._ff(a, u, s, i, n[c + 7], 22, -45705983), 
+                    i = r._ff(i, a, u, s, n[c + 8], 7, 1770035416), s = r._ff(s, i, a, u, n[c + 9], 12, -1958414417), 
+                    u = r._ff(u, s, i, a, n[c + 10], 17, -42063), a = r._ff(a, u, s, i, n[c + 11], 22, -1990404162), 
+                    i = r._ff(i, a, u, s, n[c + 12], 7, 1804603682), s = r._ff(s, i, a, u, n[c + 13], 12, -40341101), 
+                    u = r._ff(u, s, i, a, n[c + 14], 17, -1502002290), a = r._ff(a, u, s, i, n[c + 15], 22, 1236535329), 
+                    i = r._gg(i, a, u, s, n[c + 1], 5, -165796510), s = r._gg(s, i, a, u, n[c + 6], 9, -1069501632), 
+                    u = r._gg(u, s, i, a, n[c + 11], 14, 643717713), a = r._gg(a, u, s, i, n[c + 0], 20, -373897302), 
+                    i = r._gg(i, a, u, s, n[c + 5], 5, -701558691), s = r._gg(s, i, a, u, n[c + 10], 9, 38016083), 
+                    u = r._gg(u, s, i, a, n[c + 15], 14, -660478335), a = r._gg(a, u, s, i, n[c + 4], 20, -405537848), 
+                    i = r._gg(i, a, u, s, n[c + 9], 5, 568446438), s = r._gg(s, i, a, u, n[c + 14], 9, -1019803690), 
+                    u = r._gg(u, s, i, a, n[c + 3], 14, -187363961), a = r._gg(a, u, s, i, n[c + 8], 20, 1163531501), 
+                    i = r._gg(i, a, u, s, n[c + 13], 5, -1444681467), s = r._gg(s, i, a, u, n[c + 2], 9, -51403784), 
+                    u = r._gg(u, s, i, a, n[c + 7], 14, 1735328473), a = r._gg(a, u, s, i, n[c + 12], 20, -1926607734), 
+                    i = r._hh(i, a, u, s, n[c + 5], 4, -378558), s = r._hh(s, i, a, u, n[c + 8], 11, -2022574463), 
+                    u = r._hh(u, s, i, a, n[c + 11], 16, 1839030562), a = r._hh(a, u, s, i, n[c + 14], 23, -35309556), 
+                    i = r._hh(i, a, u, s, n[c + 1], 4, -1530992060), s = r._hh(s, i, a, u, n[c + 4], 11, 1272893353), 
+                    u = r._hh(u, s, i, a, n[c + 7], 16, -155497632), a = r._hh(a, u, s, i, n[c + 10], 23, -1094730640), 
+                    i = r._hh(i, a, u, s, n[c + 13], 4, 681279174), s = r._hh(s, i, a, u, n[c + 0], 11, -358537222), 
+                    u = r._hh(u, s, i, a, n[c + 3], 16, -722521979), a = r._hh(a, u, s, i, n[c + 6], 23, 76029189), 
+                    i = r._hh(i, a, u, s, n[c + 9], 4, -640364487), s = r._hh(s, i, a, u, n[c + 12], 11, -421815835), 
+                    u = r._hh(u, s, i, a, n[c + 15], 16, 530742520), a = r._hh(a, u, s, i, n[c + 2], 23, -995338651), 
+                    i = r._ii(i, a, u, s, n[c + 0], 6, -198630844), s = r._ii(s, i, a, u, n[c + 7], 10, 1126891415), 
+                    u = r._ii(u, s, i, a, n[c + 14], 15, -1416354905), a = r._ii(a, u, s, i, n[c + 5], 21, -57434055), 
+                    i = r._ii(i, a, u, s, n[c + 12], 6, 1700485571), s = r._ii(s, i, a, u, n[c + 3], 10, -1894986606), 
+                    u = r._ii(u, s, i, a, n[c + 10], 15, -1051523), a = r._ii(a, u, s, i, n[c + 1], 21, -2054922799), 
+                    i = r._ii(i, a, u, s, n[c + 8], 6, 1873313359), s = r._ii(s, i, a, u, n[c + 15], 10, -30611744), 
+                    u = r._ii(u, s, i, a, n[c + 6], 15, -1560198380), a = r._ii(a, u, s, i, n[c + 13], 21, 1309151649), 
+                    i = r._ii(i, a, u, s, n[c + 4], 6, -145523070), s = r._ii(s, i, a, u, n[c + 11], 10, -1120210379), 
+                    u = r._ii(u, s, i, a, n[c + 2], 15, 718787259), a = r._ii(a, u, s, i, n[c + 9], 21, -343485551), 
+                    i += l, a += f, u += d, s += h;
+                }
+                return t.endian([ i, a, u, s ]);
+    }
+
+
+   function pay() {
+		let _member = $('#_member').val()
+		let _field = $('#_field').val()
+		let _time = $('#_time').val()
+		let orderDate = $('#orderDate').val()
+		let openid = $('#openid').val()
+		if (_member === ''){
+			return alert('请填写会员id')
+		}
+		if (openid === ''){
+			return alert('请填写微信openid')
+		}
+		if (_field === ''){
+			return alert('请选择场地')
+		}
+		if (_time === ''){
+			return alert('请选择场次')
+		}
+		if (orderDate === ''){
+			return alert('请选择日期')
+		}
+	    $("#pay").attr({"disabled":"disabled"});
+		orderDate = orderDate.replace('年','-').replace('月','-').replace('日',' ')
+		orderDate = Date.parse(orderDate)
+		if (Date.parse(new Date())+604800000 < orderDate)
+		{
+			$("#mqtt").val(new Date()+'：超出7天，等待重试');
+			setTimeout(function(){
+				pay()
+			},2000)
+			return 
+		}
+		let d ={"_org":"5c7f489783ab0b6f3bc78789",_member,openid,orderDate,"orderArr":[{_field,_time}],"payment":"member","randomStr":"SNTnY6dBM2NNT","thirdName":"微信","state":"xiaochengxu","thirdSerect":"微信"}
+		d.sign = p(d)
+		delete d.thirdSerect
+		console.log(d)
+    	$.ajax({
+		　　url: 'https://fdsaas.hulasports.com/api/orderlists/orders',
+			contentType: "application/json; charset=utf-8",
+		　　type: "post",
+		　　data: JSON.stringify(d),
+		　　dataType: "json",
+			success: function(data){
+				console.log(data)
+				if(data.code == 200) {
+					$("#mqtt").val(new Date()+'：订购成功,请查看微信');
+				} else {
+					$("#mqtt").val(new Date()+'：订购失败');
+				}
+				 $("#pay").removeAttr("disabled");
+			},
+			error:function(arg1){
+			   $("#mqtt").val(new Date()+'：'+arg1.responseText);
+			    $("#pay").removeAttr("disabled");
+            }
+		}); 
+
+	}
+</script>
+ </body>
+
+</html>
